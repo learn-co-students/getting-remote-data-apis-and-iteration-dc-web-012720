@@ -45,7 +45,7 @@ def print_movies(films)
   # some iteration magic and puts out the movies in a nice list
   
   films.map do |film|
-    puts puts "*************\n #{film["title"]}"
+    puts "*************\n #{film["title"]}"
   end
 end
 
