@@ -3,14 +3,21 @@ require 'json'
 require 'pry'
 require 'awesome_print'
 
+def translate(url)
+  JSON.parse(RestClient.get(url))
+end
+
+def peopledata
+  url = 'http://www.swapi.co/api/people/'
+  return translate(url)
+end
+
 def get_character_movies_from_api(character_name)
   #make the web request
-  response_string = RestClient.get('http://www.swapi.co/api/people/')
-  response_hash = JSON.parse(response_string)
 
-  char_info = response_hash["results"].select { |chars| chars["name"].downcase  == character_name }
+  char_info = peopledata["results"].select { |chars| chars["name"].downcase  == character_name }
 
-  film_info = char_info[0]["films"].map { |movies| JSON.parse(RestClient.get(movies)) }
+  film_info = char_info[0]["films"].map { |movies| translate(movies) }
   return film_info
   # iterate over the response hash to find the collection of `films` for the given
   #   `character`
@@ -30,9 +37,6 @@ def print_movies(films)
   arr.each{|film| 
       puts film 
       puts "**************************" }
-  
-  
-  
 end
 
 def show_character_movies(character)
