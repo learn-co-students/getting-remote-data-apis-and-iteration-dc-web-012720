@@ -47,7 +47,7 @@ end
 
 def print_movies(array_of_films)
   array_of_films.map { |film|
-  film["title"]
+    film["title"]
   }
 end
 
