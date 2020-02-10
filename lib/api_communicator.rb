@@ -13,11 +13,13 @@ def get_character_movies_from_api(character_name)
   character_list = get_api_hash(swapi)
   characters = character_list["results"]
 
-  movies = []
-  characters.each do |movie|
-    movies << movie["films"] if movie["name"].downcase == character_name
-  end
-  movies = movies.flatten
+  
+  movies = characters.collect do |movie|
+     movie["films"] if movie["name"].downcase == character_name
+  end.reject {|wut| wut == nil}.flatten
+  binding.pry
+  
+  
 
 
   movie_aoh = []
